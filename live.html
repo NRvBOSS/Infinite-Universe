@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            overflow: hidden;
+            margin: 0;
+        }
+        #solar-system {
+            position: relative;
+            width: 800px; /* Modal içeriği için genişlik ayarı */
+            height: 800px; /* Modal içeriği için yükseklik ayarı */
+        }
+        .planet, .sun {
+            position: absolute;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+        }
+        .sun {
+            width: 50px;
+            height: 50px;
+            background-image: url('mzvdREkye2SgLCAqAme7fY-1200-80.jpg');
+            top: 50%;
+            left: 50%;
+            transform: translate(-75%,-55%);
+        }
+        .planet {
+            width: 35px;
+            height: 35px;
+        }
+        .mercury { background-image: url('https://cdn.mos.cms.futurecdn.net/fjbeeRiPRQjQNhizwy7cWX-1200-80.jpg'); }
+        .venus { background-image: url('https://cdn.mos.cms.futurecdn.net/RifjtkFLBEFgzkZqWEh69P.jpg'); }
+        .earth { background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg'); }
+        .mars { background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg'); }
+        .jupiter { background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg'); }
+        .saturn { background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg'); }
+        .uranus { background-image: url('https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg'); }
+        .neptune { background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full.jpg'); }
+        .left a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            transition: background-color 0.3s, color 0.3s; 
+        }
+        .left a:hover {
+            background-color: white;
+            color: black;
+        }
+        #stars {
+            width: 2.5px;
+            height: 2.5px;
+            background-color: white;
+            position: absolute;
+            z-index: -1;
+            animation: starsAnimation 0.35ms infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="left">
+        <a href="Main.html">
+            &#x2190;
+        </a>
+    </div>
+    <div id="solar-system">
+        <div class="sun"></div>
+        <div class="planet mercury"></div>
+        <div class="planet venus"></div>
+        <div class="planet earth"></div>
+        <div class="planet mars"></div>
+        <div class="planet jupiter"></div>
+        <div class="planet saturn"></div>
+        <div class="planet uranus"></div>
+        <div class="planet neptune"></div>
+    </div>
+
+    <script>
+
+        //Stars' codes
+        function createStars(count) {
+            for (let i = 0; i < count; i++) {
+                let star = document.createElement('div');
+                star.id = 'stars';
+                star.style.left = Math.random() * window.innerWidth + 'px';
+                star.style.top = Math.random() * window.innerHeight + 'px';
+                document.body.appendChild(star);
+            }
+        }
+        createStars(100);
+
+        const planets = document.querySelectorAll('.planet');
+
+        function calculateOrbitalSpeed(orbitalPeriodDays) {
+            const earthPeriod = 365;
+            return earthPeriod / orbitalPeriodDays;
+        }
+
+        const orbitalSpeeds = {
+            mercury: calculateOrbitalSpeed(100),
+            venus: calculateOrbitalSpeed(225),
+            earth: calculateOrbitalSpeed(365),
+            mars: calculateOrbitalSpeed(687),
+            jupiter: calculateOrbitalSpeed(4333),
+            saturn: calculateOrbitalSpeed(8759),
+            uranus: calculateOrbitalSpeed(25687),
+            neptune: calculateOrbitalSpeed(50190)
+        };
+
+        setInterval(() => {
+            planets.forEach((planet, index) => {
+                const planetClass = planet.classList[1];
+                const angle = (Date.now() / 1000) * orbitalSpeeds[planetClass];
+                const radius = 50 + index * 40;
+                const x = 380 + radius * Math.cos(angle) - 12.5;
+                const y = 390 + radius * Math.sin(angle) - 12.5;
+                planet.style.left = `${x}px`;
+                planet.style.top = `${y}px`;
+            });
+        }, 20);
+    </script>
+</body>
+</html>

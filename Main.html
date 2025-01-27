@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>InfiniteUniverse</title>
+    <link rel="icon" type="icon" href="IU-logo-design-vector-Graphics-20820745-1-580x386.jpg">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+        }
+
+        .planet,.sun{
+            cursor: pointer;
+            position: absolute;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.2s;
+            animation: planetsAnimation 3s infinite linear;
+        }
+
+        .planet,.sun :hover{
+            cursor: pointer;
+            scale: 1.2;
+        }
+
+        .sun {
+            transform-origin: center;
+            width: 175px;
+            height: 175px;
+            background-image: url('https://cdn.mos.cms.futurecdn.net/mzvdREkye2SgLCAqAme7fY-1200-80.jpg');
+            top: 38%;
+            left: 0;
+            transform: translate(-50%, -50%);
+        }
+        #stars {
+            width: 2.5px;
+            height: 2.5px;
+            background-color: white;
+            position: absolute;
+            z-index: -1;
+            animation: starsAnimation 0.35ms infinite;
+        }
+
+        .mercury {
+            background-image: url('https://cdn.mos.cms.futurecdn.net/fjbeeRiPRQjQNhizwy7cWX-1200-80.jpg');
+            top: 43.5%;
+            left: 15%;
+            width: 85px;
+            height: 85px;
+        }
+
+        .venus {
+            background-image: url('https://cdn.mos.cms.futurecdn.net/RifjtkFLBEFgzkZqWEh69P.jpg');
+            top: 42.5%;
+            left: 25%;
+            width: 95px;
+            height: 95px;
+        }
+
+        .earth {
+            background-image: url('The_Earth_seen_from_Apollo_17.jpg');
+            top: 41.5%;
+            left: 35%;
+            width: 105px;
+            height: 105px;
+        }
+
+        .mars {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg');
+            top: 42%;
+            left: 47%;
+            width: 97.5px;
+            height: 97.5px;
+        }
+
+        .jupiter {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg');
+            top: 39.5%;
+            left: 57%;
+            width: 155px;
+            height: 155px;
+        }
+
+        .saturn {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg');
+            top: 40.5%;
+            left: 71%;
+            width: 135px;
+            height: 135px;
+        }
+
+        .uranus {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg');
+            top: 40.5%;
+            left: 83%;
+            width: 127px;
+            height: 127px;
+        }
+
+        .neptune {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full.jpg');
+            top: 40.5%;
+            left: 93%;
+            width: 120px;
+            height: 120px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.75);
+        }
+        
+        .modal-content {
+            border-radius: 20px;
+            position: relative;
+            color: white;
+            background-color: rgb(0, 0, 0);
+            margin: 15% auto;
+            padding: 1%;
+            border: 1px solid #888;
+            width: 40%;
+            height: 35%;
+            text-align: center;
+            font-size: auto;
+}
+
+        @media screen and (min-max:600px){
+            .modal-content{
+                width: 30px;
+                height: auto;
+            }
+            .modal{
+                width: 20px;
+                height: auto;
+            }
+            
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+}
+
+        .close:hover,.close:focus{
+            text-decoration: none;
+            cursor: pointer;
+}
+
+
+        @keyframes planetsAnimation {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+
+}
+
+         *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        .button{
+            overflow: hidden;
+            background-color: black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            top: 0;
+            padding: 0 30px;
+            position: fixed;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            flex-grow: 1;
+            margin-left: 30px;
+        }
+
+        a{
+            border-radius: 7px;
+            padding: 10px;
+            height: 40px;
+            width: 130px;
+            margin: 30px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5%;
+            transition: background-color 0.3s, color 0.3s; 
+
+        }
+        
+        .button a:hover{
+            background-color: white;
+            color: black;
+        }
+
+        .logo{
+            cursor: pointer;
+            border: 0 solid ;
+            background-color: black;
+            height: 100px;
+            justify-content: center;
+            text-align: center;
+            margin-right: 30%;
+            margin-left: 4%;
+        }
+
+        .blinking-light{
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+            margin-right:5px;
+        }
+        
+        @keyframes blink{
+            0%,100%{opacity: 1;}
+            50%{opacity: 0.5;}
+        }
+
+    </style>
+</head>
+<body>
+    <div id="solar-system">
+
+        <a class="myBtn">
+            <div class="sun" data-target="modalSun"></div>
+        </a>
+
+        <div id="myModalSun" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3 style="text-align: center; margin: 15px;">Günəş</h3>
+                <p>Günəşin çəkisi 1.989 × 10²⁴ kq-dır.Günəşin diametri təxminən 1.39 milyon km-dir.Günəşin səth temperaturu təxminən 5,500 °C, mərkəzində isə 15 milyon °C-dir.Hər saniyə Günəş 3.8 × 10²⁶ vatt enerji istehsal edir.Günəşin tərkibi 74% hidrogen, 24% helium və 2% digər elementlərdən ibarətdir.Günəşin yaşı təxminən 4.6 milyard ildir.Günəşin Yerdən orta uzaqlığı təxminən 150 milyon km-dir.Günəşin cazibə qüvvəsi Günəş sistemindəki bütün planetləri özündə saxlayır.Günəşin enerjisi fotosintez prosesi üçün vacibdir və həyat üçün əsas mənbədir.Günəşdə baş verən nüvə füziyası hidrogen atomlarını helium atomlarına çevirir və bu proses böyük miqdarda enerji sərbəst buraxır.</p>
+                <img src="00pQno-LogoMakr.png" alt="" style="color: white;position: relative;height: 50px;width: 50px;left: 40%; bottom :45%">
+            </div>
+        </div>
+
+        <a class="myBtn">
+            <div class="planet mercury"></div>
+        </a>
+
+        <div id="myModalMercury" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3 style="text-align: center; margin: 15px;">Merkuri</h3>
+                <p>Merkuri Günəşə ən yaxın planetdir.Planetin səth temperaturu gündüz 430 °C, gecə isə -180 °C-ə qədər enir.Merkuri Günəş ətrafında 88 günə dövr edir.Planetin atmosferi çox zəifdir.Merkuri səthində çox sayda krater var.Merkuri Günəş sistemində ən kiçik planetdir.Planetin maqnit sahəsi Yerin maqnit sahəsinin təxminən 1%-i qədərdir.Merkuri səthində su buzları tapılıb.Günəşə yaxınlığı səbəbindən Merkuri çox isti olur.Merkuri Yerdən teleskop vasitəsilə çətin görünür.</p>
+                <img src="00pQno-LogoMakr.png" alt="" style="color: white;position: relative;height: 50px;width: 50px;left: 40%; bottom :45%">
+            </div>
+        </div>
+
+        <a class="myBtn">
+            <div class="planet venus" ></div>
+        </a>
+
+        <div id="myModalVenus" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3 style="text-align: center; margin: 15px;">Venera</h3>
+            <p>Venera Günəşdən ikinci planetdir.Veneranın atmosferi əsasən karbon dioksiddən ibarətdir.Planetin səth temperaturu təxminən 470 °C-dir.Venera Günəş ətrafında 225 günə dövr edir.Venera Günəş sistemində ən parlaq planetdir.Planetin səthi qalın buludlarla örtülüdür.Venera saat əqrəbi istiqamətində fırlanır.Planetin səthində vulkanik fəaliyyət çoxdur.Veneranın atmosfer təzyiqi Yerdən 92 dəfə çoxdur.Planetin səthində su yoxdur.</p>
+            <img src="00pQno-LogoMakr.png" alt="" style="color: white;position: relative;height: 50px;width: 50px;left: 40%; bottom :45%">
+            </div>
+        </div>
+
+        <a class="myBtn">
+            <div class="planet earth"></div>
+        </a>
+
+        <div id="myModalEarth" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3 style="text-align: center; margin: 15px;">Yer</h3>
+            <p>Yer Günəşdən üçüncü planetdir.Yer səthi 71% su ilə örtülüdür.Yer Günəş ətrafında 365.25 günə dövr edir.Yerin atmosferi əsasən azot və oksigendən ibarətdir.Yer üzərində həyat olan yeganə planetdir.Yerin bir peyki Ay adlanır.Yerin maqnit sahəsi bizi zərərli kosmik şüalardan qoruyur.Yer kürəsində müxtəlif iqlim zonaları var.Planetin daxili nüvəsi dəmirdən ibarətdir.Yer üzərində milyardlarla növ canlı var.</p>
+            <img src="00pQno-LogoMakr.png" alt="" style="color: white;position: relative;height: 50px;width: 50px;left: 40%; bottom :45%">
+            </div>
+        </div>
+
+        <a class="myBtn">
+            <div class="planet mars"></div>
+        </a>
+
+        <div id="myModalMars" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3 style="text-align: center; margin: 15px;">Mars</h3>
+            <p>Mars Günəşdən dördüncü planetdir.Mars "Qırmızı Planet" adlanır, çünki səthi dəmir oksidi ilə örtülüdür.Marsın səthi soyuq və quraqdır.Mars Günəş ətrafında 687 günə dövr edir.Marsın iki peyki var: Phobos və Deimos.Marsın atmosferi çox incədir və əsasən karbon dioksiddən ibarətdir.Marsda su buzları tapılıb.Planetin ən yüksək dağı Olympus Mons adlanır.Marsda qədim çay yataqları və vulkanik fəaliyyət izləri var.Marsda gələcəkdə insan koloniyaları qurma planları var.</p>
+            <img src="00pQno-LogoMakr.png" alt="" style="color: white;position: relative;height: 50px;width: 50px;left: 40%; bottom :45%">
+            </div>
+        </div>
+
+        <a class="myBtn">
+            <div class="planet jupiter"></div>
+        </a>
+
+    <div id="myModalJupiter" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 style="text-align: center; margin: 15px;">Yupiter</h3>
+            <p>Yupiter Günəş sisteminin ən böyük planetidir.Yupiterin ətrafında 79 peyk var.Yupiterin səthi qazlardan ibarətdir və möhkəm səth yoxdur.Yupiter Günəş ətrafında 12 ildə dövr edir.Planetin ən böyük peyki Ganymede Yerdən daha böyükdür.Yupiterin qırmızı ləkəsi böyük bir fırtınadır.Yupiterin maqnit sahəsi çox güclüdür.Planetin atmosferi əsasən hidrogen və heliumdan ibarətdir.Yupiterin üzərində güclü qasırğalar var.Yupiterin kütləsi digər bütün planetlərin kütləsindən daha çoxdur.</p>
+            <img src="00pQno-LogoMakr.png" alt="" style="color: white;position: relative;height: 50px;width: 50px;left: 40%; bottom :45%">
+        </div>
+    </div>
+
+        <a class="myBtn">
+        <div class="planet saturn"></div>
+    </a>
+
+    <div id="myModalSaturn" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 style="text-align: center; margin: 15px;">Saturn</h3>
+            <p>Saturn Günəşdən altıncı planetdir.Saturnun ətrafında görkəmli halqalar var.Saturn Günəş ətrafında 29.5 ildə dövr edir.Planetin ən böyük peyki Titan adlanır.Saturnun halqaları əsasən buz parçalarından ibarətdir.Saturnun səthi qazlardan ibarətdir.Saturnun atmosferi əsasən hidrogen və heliumdan ibarətdir.Saturnun maqnit sahəsi güclüdür.Saturnun ətrafında 83 peyk var.Saturnun sıxlığı suyun sıxlığından azdır, bu səbəbdən suyun üzərində üzə bilərdi.</p>
+            <img src="00pQno-LogoMakr.png" alt="" style="color: white;position: relative;height: 50px;width: 50px;left: 40%; bottom :45%">
+        </div>
+    </div>
+
+        <a class="myBtn">
+        <div class="planet uranus"></div>
+    </a>
+
+    <div id="myModalUranus" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 style="text-align: center; margin: 15px;">Uran</h3>
+            <p>Uran Günəşdən yeddinci planetdir.Uran Günəş ətrafında 84 ildə dövr edir.Planetin atmosferi əsasən hidrogen, helium və metandan ibarətdir.Uran Günəş sistemində ən soyuq planetdir.Uranın ətrafında zəif halqalar var.Uranın səthi mavi-yaşıl rəngdədir.Uranın maqnit sahəsi planetin mərkəzindən uzaqdır.Uranın 27 peyki var.Uranın eksen əyilməsi təxminən 98 dərəcədir.Uranın səthində güclü küləklər var.</p>
+            <img src="00pQno-LogoMakr.png" alt="" style="color: white;position: relative;height: 50px;width: 50px;left: 40%; bottom :45%">
+        </div>
+    </div>
+
+        <a class="myBtn">
+        <div class="planet neptune"></div>
+    </a>
+
+    <div id="myModalNeptune" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 style="text-align: center; margin: 15px;">Neptun</h3>
+            <p>Neptun Günəşdən səkkizinci planetdir.Neptun Günəş ətrafında 165 ildə dövr edir.Neptun Günəş sistemində ən küləkli planetdir.Planetin atmosferi əsasən hidrogen, helium və metandan ibarətdir.Neptunun səthi mavi rəngdədir.Neptunun ən böyük peyki Triton adlanır.Neptunun ətrafında zəif halqalar var.Neptunun maqnit sahəsi güclüdür.Planetdə böyük qasırğalar olur.Neptunun kütləsi Yerdən 17 dəfə çoxdur.</p>
+            <img src="00pQno-LogoMakr.png" alt="" style="color: white;position: relative;height: 50px;width: 50px;left: 40%; bottom :45%">
+        </div>
+    </div>
+</div>
+
+<div class="button">
+    <button class="logo"><img src="5HzIBF-LogoMakr.png" alt=""></button>
+    <div class="nav-links">
+        <a href="#" class="categories">Categories  <i class=" fas fa-caret-down "></i></a>
+        <a href="https://www.horoscope.com/us/horoscopes/general/index-horoscope-general-daily.aspx">Horoscopes</a>
+        <a href="live.html"><div class="blinking-light"></div>Live</a>
+        <a href="about.html">About</a>
+    </div>
+</div>
+    
+    <script>
+        //Stars' codes
+        function createStars(count) {
+            for (let i = 0; i < count; i++) {
+                let star = document.createElement('div');
+                star.id = 'stars';
+                star.style.left = Math.random() * window.innerWidth + 'px';
+                star.style.top = Math.random() * window.innerHeight + 'px';
+                document.body.appendChild(star);
+            }
+        }
+        createStars(100);
+
+        var modals = document.querySelectorAll('.modal');
+        var btns = document.querySelectorAll('.myBtn');
+        var spans = document.querySelectorAll('.close');
+
+        btns.forEach((btn,index)=>{
+            btn.onclick = function() {
+              modals[index].style.display = "block";
+            }
+        })
+
+        spans.forEach((span,index)=>{
+            span.onclick = function() {
+              modals[index].style.display = "none";
+            }
+        })
+    </script>
+</body>
+</html>
